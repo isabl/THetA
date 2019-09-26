@@ -81,7 +81,7 @@ def process_loop(queue, opt, returnQueue, sorted_index, get_values):
             elif likelihood < min_likelihood:
                 C_new = reverse_sort_C(C,sorted_index)
                 vals = reverse_sort_list(vals, sorted_index)
-                best = [(C_new, mu, likelihood, vals)]
+                best.append((C_new, mu, likelihood, vals))
                 min_likelihood = likelihood
 
     if get_values:
@@ -118,7 +118,7 @@ def find_mins(best):
             true_best += solns
         elif likelihood < min_likelihood:
             min_likelihood = likelihood
-            true_best = solns
+            true_best += solns
     return true_best
 
 def do_optimization(n,m,k,tau,lower_bounds, upper_bounds, r, rN, \
@@ -202,7 +202,7 @@ def do_optimization_single(n,m,k,tau,lower_bounds, upper_bounds, r, rN, \
             elif likelihood < min_likelihood:
                 C_new = reverse_sort_C(C,sorted_index)
                 vals = reverse_sort_list(vals, sorted_index)
-                best = [(C_new, mu, likelihood, vals)]
+                best.append((C_new, mu, likelihood, vals))
                 min_likelihood = likelihood
 
         C = enum.generate_next_C()
@@ -485,7 +485,7 @@ def run_fixed_N(n, args, intervals, resultsfile=None):
             resultsFile = BAFprefix + ".n"+str(n)+".results"
             resultsPath = os.path.join(directory, resultsFile)
             try:
-                run_BAF_model(resultsPath, tumor=tumorData, normal=normalData, normalBAF=normalBAF, tumorBAF=tumorBAF, chrmsToUse=chrmsToUse,intervals=intervalData, prefix=prefix + ".n" + str(n), directory=directory, numProcesses=num_processes)
+                run_BAF_model(resultsPath, tumor=tumorData, normal=normalData, normalBAF=normalBAF, tumorBAF=tumorBAF, chrmsToUse=chrmsToUse,intervals=intervalData, prefix=prefix + ".n" + str(n), directory=directory, numProcesses=num_processes, plotOption='all')
                 #run_BAF_model(resultsPath, prefix=prefix + ".n" + str(n), directory=directory, numProcesses=num_processes)
             except IOError:
                 print "ERROR: Invalid locations for tumor and normal SNP files. The BAF model will not be run. You can try running the BAF model again directly from the runBAFModel.py script."

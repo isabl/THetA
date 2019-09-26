@@ -129,7 +129,7 @@ def run_BAF_model(resultsFile, tumor=None, normal=None, tumorBAF=None, normalBAF
 	#generate results
 	plot_results(BAFVec, meansVec, posVec, chrmVec, NLLVec, chrmsToUse, plotOption, directory, prefix, plotDim)
 	results['BAF_NLL'] = NLLVec
-	write_out_NLL_result(directory, prefix, results)
+	write_out_NLL_result(directory, prefix, results, best=False)
 
 def plot_single_result(BAF, means, pos, chrm, NLL, chrmsToUse, numberResults, fig, colors, plotNum=1):
 
