@@ -525,7 +525,8 @@ def get_gaussian_NLL(tumor, tumorBAF, normal, normalBAF, C, mu, pi, numProcesses
 
 	#calculating distribution parameters
 	delta = generate_delta(C, mu)
-	sigma = generate_sigma(normal, normalBAF, pi, len(C)) #not sure about len(C)
+	# sigma = generate_sigma(normal, normalBAF, pi, len(C)) #not sure about len(C)
+	sigma = 0.001 # because we are faking the normal BAF, it doesn't matter what the stdev is, as long as it is non-zero
 
 	NLL = 0
 	means = []
@@ -536,9 +537,9 @@ def get_gaussian_NLL(tumor, tumorBAF, normal, normalBAF, C, mu, pi, numProcesses
 		pos = tumor[i][1]
 		j = calculate_interval(pi, chrm, pos)
 		#ignore snps whose intervals cannot be calculated, or have a 0 standard deviation
-		if j is None or sigma[j] is None or sigma[j] == 0: continue
+		if j is None: continue # or sigma[j] is None or sigma[j] == 0: continue
 		else:
-			mean, log_likelihood = normal_BAF_pdf(tumorBAF[i], delta[j], sigma[j])
+			mean, log_likelihood = normal_BAF_pdf(tumorBAF[i], delta[j], sigma)
 			NLL -= log_likelihood
 			means.append(mean)
 			posVec.append(pos)
