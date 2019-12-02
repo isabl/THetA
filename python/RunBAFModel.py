@@ -394,8 +394,9 @@ def generate_delta(C, mu):
 	for row in C:
 		numerator = sum(map(lambda (a, b): phi(a) * b, zip(row, mu)))
 		denominator = sum(map(lambda (a, b): a * b, zip(row, mu)))
-		deltaj = (numerator / denominator) - 0.5
-		delta.append(deltaj)
+		if denominator != 0:
+			deltaj = (numerator / denominator) - 0.5
+			delta.append(deltaj)
 	return delta
 
 def generate_pi(intervals):
