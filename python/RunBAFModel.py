@@ -394,7 +394,9 @@ def generate_delta(C, mu):
 	for row in C:
 		numerator = sum(map(lambda (a, b): phi(a) * b, zip(row, mu)))
 		denominator = sum(map(lambda (a, b): a * b, zip(row, mu)))
-		if denominator != 0:
+		if denominator == 0:
+			deltaj = 0.01 # expected BAF deviation from 0.5 assume to be minimum
+		else:
 			deltaj = (numerator / denominator) - 0.5
 			delta.append(deltaj)
 	return delta
