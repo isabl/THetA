@@ -542,7 +542,7 @@ def get_gaussian_NLL(tumor, tumorBAF, normal, normalBAF, C, mu, pi, numProcesses
 		#ignore snps whose intervals cannot be calculated, or have a 0 standard deviation
 		if j is None: continue # or sigma[j] is None or sigma[j] == 0: continue
 		else:
-			mean, log_likelihood = normal_BAF_pdf(tumorBAF[i], delta[j], sigma)
+			mean, log_likelihood = normal_BAF_pdf(tumorBAF[i], delta[j] if delta else 0, sigma)
 			NLL -= log_likelihood
 			means.append(mean)
 			posVec.append(pos)
