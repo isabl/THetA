@@ -176,8 +176,8 @@ def plot_results(out_dir, filename, prefix, concordant_file, n_subpops, extensio
 
 		#p = [float(p) for p in parts[2].split(",")]
 
-		max_copy_number = 0
-		max_copy_number = max(max(pop) for pop in C)
+		# Juan M. 08/21. For whatever reason got an empty C
+		max_copy_number = 0 if not C else max(max(pop) for pop in C)
 
 
 		"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
